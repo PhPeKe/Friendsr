@@ -1,6 +1,7 @@
 package com.example.phillip.friendsr;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,16 +30,29 @@ public class TrumpAdapter extends ArrayAdapter<Trump> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.grid_item, parent, false);
         }
 
+        if (position > 11) {
+            position = position % 10;
+        }
+
+        // Handler for this trump
+        Trump thistrump = trumps.get(position);
+
         // Set bio, image and name by first getting the right reference and then setting properties
         // extracted from the array-list depending on the position
-        TextView bio = convertView.findViewById(R.id.bio);
-        bio.setText(trumps.get(position).getBio());
+        //TextView bio = convertView.findViewById(R.id.bio);
+        //bio.setText(thistrump.getBio());
 
         TextView name = convertView.findViewById(R.id.name);
-        name.setText(trumps.get(position).getBio());
+        name.setText(thistrump.getName());
 
+        System.out.println("ID::::::::::");
+        System.out.println(thistrump.getDrawableId());
+
+
+        // Used step of img for overview reasons
         ImageView image = convertView.findViewById(R.id.image);
-        image.getContext().getResources().getDrawable(trumps.get(position).getDrawableId());
+        Drawable img = getContext().getResources().getDrawable(thistrump.getDrawableId());
+        image.setImageDrawable(img);
 
         // Return everything to the main activity
         return convertView;

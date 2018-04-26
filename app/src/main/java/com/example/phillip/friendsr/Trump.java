@@ -2,21 +2,20 @@ package com.example.phillip.friendsr;
 
 import java.io.Serializable;
 
-
+// Class Trump
 public class Trump implements Serializable {
     private String name, bio;
     private int drawableId;
     private float rating;
 
+    // Constructor for a trump-object with name, biography and rating
     public Trump(String aName, String aBio, int aDrawableId) {
         this.name = aName;
         this.bio = aBio;
         this.drawableId = aDrawableId;
     }
-    public void setRating(float aRating) {
-        this.rating = aRating;
-    }
 
+    // Getter for private fields of trump
     public int getDrawableId() {
         return drawableId;
     }
@@ -29,7 +28,11 @@ public class Trump implements Serializable {
         return bio;
     }
 
+    // Getter and setter for rating
     public float getRating() {
         return rating;
+    }
+    public void setRating(float aRating) {
+        this.rating = aRating;
     }
 }
