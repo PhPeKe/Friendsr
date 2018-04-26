@@ -2,10 +2,12 @@ package com.example.phillip.friendsr;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.RatingBar;
 
 import java.util.ArrayList;
 
@@ -13,7 +15,6 @@ public class MainActivity extends Activity {
 
     // Make empty array list to which the trumps can be added later
     ArrayList<Trump> trumps = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +47,6 @@ public class MainActivity extends Activity {
         // Connect grid-view to
         grid.setOnItemClickListener(new GridItemClickListener());
 
-        System.out.println("-----------PRINT----------");
-        System.out.println(trumps.get(9).getDrawableId());
-        System.out.println("-----------PRINT----------");
 
     }
 
@@ -61,9 +59,8 @@ public class MainActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-            // Get appropriate trump depending on which item was clicked
+            // Retrieve appropriate trump
             Trump clicked_trump = (Trump) adapterView.getItemAtPosition(i);
-            System.out.println(clicked_trump.getBio());
 
             // Instantiate Intent
             Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
