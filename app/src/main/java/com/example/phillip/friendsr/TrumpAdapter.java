@@ -30,24 +30,13 @@ public class TrumpAdapter extends ArrayAdapter<Trump> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.grid_item, parent, false);
         }
 
-        if (position > 11) {
-            position = position % 10;
-        }
-
         // Handler for this trump
         Trump thistrump = trumps.get(position);
 
-        // Set bio, image and name by first getting the right reference and then setting properties
+        // Set image and name by first getting the right reference and then setting properties
         // extracted from the array-list depending on the position
-        //TextView bio = convertView.findViewById(R.id.bio);
-        //bio.setText(thistrump.getBio());
-
         TextView name = convertView.findViewById(R.id.name);
         name.setText(thistrump.getName());
-
-        System.out.println("ID::::::::::");
-        System.out.println(thistrump.getDrawableId());
-
 
         // Used step of img for overview reasons
         ImageView image = convertView.findViewById(R.id.image);

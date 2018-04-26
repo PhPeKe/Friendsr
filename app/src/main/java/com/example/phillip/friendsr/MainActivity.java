@@ -1,8 +1,10 @@
 package com.example.phillip.friendsr;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import java.util.ArrayList;
@@ -18,19 +20,19 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Add all trumps to array-list
-        addTrump("Smug Trump", "Just fired you", "smug");
-        addTrump("Angry Trump", "Thinks about who he will fire today", "angry");
-        addTrump("Arrogant Trump", "Is a few million dollars better than you", "arrogant");
-        addTrump("Astonished Trump", "Just realized he won the elections", "astonished");
-        addTrump("Incredulous Trump", "Doesn't believe a word you just said to him", "incrodulous");
-        addTrump("Fashionable Trump", "Feels a little lofty today", "lofty_fashionable");
-        addTrump("Sad Trump", "Just heard he can't let Mexico pay for the wall", "bewildered");
-        addTrump("Focused Trump", "How many fingers do I have?", "focused");
-        addTrump("Happy Trump", "Is extremely happy with himself today", "mirthful");
-        addTrump("Sleepy Trump", "Had a long afternoon at the white house", "sleepy");
-        addTrump("Cool Trump", "Cooler than ice", "cool");
-        addTrump("Cheeky Trump", "Just thought of a joke", "cheeky");
+        // Add all trumps to array-list via addTrump method, \n for aesthetic reasons
+        addTrump("Smug \nTrump", "Just fired you", "smug");
+        addTrump("Angry \nTrump", "Thinks about who he will fire today", "angry");
+        addTrump("Arrogant \nTrump", "Is a few million dollars better than you", "arrogant");
+        addTrump("Astonished \nTrump", "Just realized he won the elections", "astonished");
+        addTrump("Incredulous \nTrump", "Doesn't believe a word you just said to him", "incrodulous");
+        addTrump("Fashionable \nTrump", "Feels a little lofty today", "lofty_fashionable");
+        addTrump("Sad \nTrump", "Just heard he can't let Mexico pay for the wall", "bewildered");
+        addTrump("Focused \nTrump", "How many fingers do I have?", "focused");
+        addTrump("Happy \nTrump", "Is extremely happy with himself today", "mirthful");
+        addTrump("Sleepy \nTrump", "Had a long afternoon at the white house", "sleepy");
+        addTrump("Cool \nTrump", "Cooler than refrigerated diet-coke", "cool");
+        addTrump("Cheeky \nTrump", "Just thought of a joke", "cheeky");
 
         // Instantiate adapter to fill the main View with Trumps
         TrumpAdapter adapter = new TrumpAdapter(this, R.layout.grid_item, trumps);
@@ -40,6 +42,9 @@ public class MainActivity extends Activity {
 
         // Pair adapter with grid-view
         grid.setAdapter(adapter);
+
+        // Connect grid-view to
+        grid.setOnItemClickListener(new GridItemClickListener());
 
         System.out.println("-----------PRINT----------");
         System.out.println(trumps.get(9).getDrawableId());
@@ -52,6 +57,24 @@ public class MainActivity extends Activity {
         trumps.add(new Trump(name, bio, this.getResources().getIdentifier(picture, "drawable", getPackageName())));
     }
 
+    private class GridItemClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            // Get appropriate trump depending on which item was clicked
+            Trump clicked_trump = (Trump) adapterView.getItemAtPosition(i);
+            System.out.println(clicked_trump.getBio());
+
+            // Instantiate Intent
+            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+
+            // Pass selected trump to intent
+            intent.putExtra("clicked_trump", clicked_trump);
+
+            // Start activity
+            startActivity(intent);
+        }
+    }
 
 }
 
