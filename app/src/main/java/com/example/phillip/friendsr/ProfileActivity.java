@@ -4,11 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.media.Rating;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -19,6 +15,7 @@ public class ProfileActivity extends Activity {
     private String trumpName;
     private Trump retrievedTrump;
     private float rating;
+    private TextView bio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +40,7 @@ public class ProfileActivity extends Activity {
         image.setImageDrawable(img);
 
         // Bio
-        TextView bio = findViewById(R.id.bio);
+        bio = findViewById(R.id.bio);
         bio.setText(retrievedTrump.getBio());
 
         // Rating-bar
@@ -79,4 +76,5 @@ public class ProfileActivity extends Activity {
             retrievedTrump.setRating(rating);
         }
     }
+
 }

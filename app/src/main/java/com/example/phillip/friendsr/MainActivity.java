@@ -2,26 +2,26 @@ package com.example.phillip.friendsr;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.RatingBar;
-
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
     // Make empty array list to which the trumps can be added later
-    ArrayList<Trump> trumps = new ArrayList<>();
+    private ArrayList<Trump> trumps = new ArrayList<>();
+    private GridView grid;
+    private TrumpAdapter adapter;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Add all trumps to array-list via addTrump method, \n for aesthetic reasons
+        // Add all trumps to array-list via addTrump method, "\n" for aesthetic reasons
         addTrump("Smug \nTrump", "Just fired you", "smug");
         addTrump("Angry \nTrump", "Thinks about who he will fire today", "angry");
         addTrump("Arrogant \nTrump", "Is a few million dollars better than you", "arrogant");
@@ -36,10 +36,10 @@ public class MainActivity extends Activity {
         addTrump("Cheeky \nTrump", "Just thought of a joke", "cheeky");
 
         // Instantiate adapter to fill the main View with Trumps
-        TrumpAdapter adapter = new TrumpAdapter(this, R.layout.grid_item, trumps);
+        adapter = new TrumpAdapter(this, R.layout.grid_item, trumps);
 
         // Save reference to grid-view
-        GridView grid = findViewById(R.id.grid);
+        grid = findViewById(R.id.grid);
 
         // Pair adapter with grid-view
         grid.setAdapter(adapter);
@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
             Trump clicked_trump = (Trump) adapterView.getItemAtPosition(i);
 
             // Instantiate Intent
-            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+            intent = new Intent(MainActivity.this, ProfileActivity.class);
 
             // Pass selected trump to intent
             intent.putExtra("clicked_trump", clicked_trump);
@@ -72,6 +72,18 @@ public class MainActivity extends Activity {
             startActivity(intent);
         }
     }
+
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("Hi","Hallo");
+    }
+
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+
+    }
+
 
 }
 
