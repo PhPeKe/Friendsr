@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="293dp"
+        android:layout_height="290dp"
         android:layout_gravity="center"
         android:layout_margin="12dp"
         android:adjustViewBounds="true"
@@ -30,7 +30,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="1"
         android:clickable="true"
         android:numStars="5" />
 
@@ -42,4 +41,12 @@
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:text="TextView" />
+
+    <Button
+        android:id="@+id/like"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="likeThis"
+        android:text="LIKE" />
 </LinearLayout>

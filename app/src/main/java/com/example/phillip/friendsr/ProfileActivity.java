@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -15,7 +17,8 @@ public class ProfileActivity extends Activity {
     private String trumpName;
     private Trump retrievedTrump;
     private float rating;
-    private TextView bio;
+    private int likes;
+    private Button likeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,7 @@ public class ProfileActivity extends Activity {
         image.setImageDrawable(img);
 
         // Bio
-        bio = findViewById(R.id.bio);
+        TextView bio = findViewById(R.id.bio);
         bio.setText(retrievedTrump.getBio());
 
         // Rating-bar
@@ -49,11 +52,22 @@ public class ProfileActivity extends Activity {
         // Get shared preferences
         SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
         rating = prefs.getFloat("rating_" + trumpName, 1000);
+        likes = prefs.getInt("likes_" + trumpName, 0);
+
+        // Save likes from shared preferences in Trump object
+        retrievedTrump.setLikes(likes);
 
         // Set rating if present
         if (rating != 1000) {
             ratingBar.setRating(rating);
         }
+
+        // Set Like-Button Text
+        likeButton = findViewById(R.id.like);
+
+        // Set text if likes is already present in shared preferences
+        likeButton.setText("LIKE (" + String.valueOf(retrievedTrump.getLikes()) + ")");
+
 
         // Connect rating bar with event-listener
         ratingBar.setOnRatingBarChangeListener(new OnRating());
@@ -77,4 +91,19 @@ public class ProfileActivity extends Activity {
         }
     }
 
+    public void likeThis (final View view) {
+        SharedPreferences.Editor editor = getSharedPreferences("settings", MODE_PRIVATE).edit();
+
+        // Raise likes in Trump-object
+        retrievedTrump.raiseLikes();
+
+        // Put current number of likes in shared preferences
+        editor.putInt("likes_" + trumpName, retrievedTrump.getLikes());
+        editor.apply();
+
+        // Set likes on button-text
+        likeButton.setText("LIKE (" + String.valueOf(retrievedTrump.getLikes()) + ")");
+
+        System.out.println(retrievedTrump.getLikes());
+    }
 }

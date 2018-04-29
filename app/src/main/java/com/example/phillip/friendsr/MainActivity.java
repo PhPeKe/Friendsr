@@ -73,17 +73,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("Hi","Hallo");
-    }
-
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-
-    }
-
 
 }
 
